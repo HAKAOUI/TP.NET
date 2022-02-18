@@ -1,4 +1,4 @@
-﻿@using ASP.Server.Model
+﻿@using ASP.Server.Data
 @model IEnumerable<Book>
 @{
     ViewData["Title"] = "Home Page";
@@ -6,9 +6,45 @@
 
 <div class="listeBooks">
     <h1>Liste des livres:</h1>
-    <!-- la liste des genres est dans la variable Model qui est typé en ligne 3, elle correspond à la variable xxx dans View(xxx) du controller -->
-    @foreach (var book in Model)
-    {
-    }
-</div>
+    <table>
+        <tr>
+        
+            <th>Name</th>
+        
+            <th>Author</th>
+        
+            <th>Price</th>
+        
+            <th>Content</th>
 
+            <th>Genre</th>
+
+            <th>boutton</th>
+
+        </tr>
+    <!-- la liste des genres est dans la variable Model qui est typé en ligne 3, elle correspond à la variable xxx dans View(xxx) du controller -->
+        @foreach (var book in Model)
+        {
+    <tr>
+        <td>@book.Nom</td>
+        <td>@book.Autheur</td>
+        <td>@book.Prix</td>
+        <td>@book.Contenu</td>
+        <td>
+            @foreach(var genre in book.Genres)
+        {
+            @genre.Nom
+        }
+        </td>
+        <td>
+            <form asp-controller="Book" asp-action="Delete" method="post">
+                <input type="hidden" asp-for="@book.Id" name="id">
+                <input type="submit" value="Delete" style="width: 100%;" />
+            </form>
+        </td>
+    </tr>
+        
+        
+        }
+    </table>
+</div>

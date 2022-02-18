@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ASP.Server.Model;
+using ASP.Server.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,11 +56,26 @@ namespace ASP.Server.Api
 
 
         // Vous vous montre comment faire la 1er, a vous de la compléter et de faire les autres !
-        public ActionResult<List<Book>> GetBooks()
+        public ActionResult<List<Book>> GetBooks(int limit = 10, int offset = default)
         {
-            throw new NotImplementedException("You have to do it youtself");
+            return libraryDbContext.Books
+                .Where(book => book.Id >= offset && book.Id < (limit + offset))
+                .OrderByDescending(book => book.Nom)
+                .Select(book => new Book() { Id = book.Id, Nom = book.Nom })
+                .ToList();
         }
 
+        public ActionResult<Book> GetBook(int id)
+        {
+            return libraryDbContext.Books.Single(book => book.Id == id);
+                
+      
+        }
+
+        public ActionResult<List<Genre>> GetGenres()
+        {
+            return libraryDbContext.Genre.Select(genre => genre).OrderByDescending(genre => genre.Nom).ToList();
+        }
     }
 }
 
