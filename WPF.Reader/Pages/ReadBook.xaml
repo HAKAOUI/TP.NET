@@ -20,6 +20,14 @@
         </Grid.RowDefinitions>
         <!-- On aimerais bien avoir le tire du livre en entête -->
 
+        <StackPanel>
+
+            <TextBox Text="{Binding CurrentBook.Nom}" FontSize="20" Width="180" Height="30" Background="#FFC0D8FD" Margin="7,0,0,0" TextAlignment="Center"  />
+            <TextBox Text="Contenu" FontSize="15"  Width="600" Height="30" Background="#FFC0D8FD" TextAlignment="Center"  />
+            <TextBox Text="{Binding CurrentBook.Contenu}"  Width="600" Height="200"  />
+
+        </StackPanel>
+
         <!-- Ainsi que le contenu du livre ! -->
         
         <Button Grid.Row="2" Command="{Binding Path=GoBack, Source={StaticResource ResourceKey=navigator}}" CommandParameter="LIST" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="200" Content="Retourner au details" Margin="0,0,0,27"/>
